@@ -7,17 +7,50 @@ let cart = JSON.parse(localStorage.getItem('alSaiifCart') || '[]');
 const $ = (id) => document.getElementById(id);
 const money = (n) => `PKR ${n.toLocaleString()}`;
 
-function setupGallery(){
+function setupGallery() {
   const grid = $('thumbnailGrid');
+
+  if (!grid) {
+    console.error('Thumbnail grid was not found.');
+    return;
+  }
+
+  grid.innerHTML = '';
+
   images.forEach((src, i) => {
     const btn = document.createElement('button');
-    btn.innerHTML = `<img src="${src}" alt="Emergency light product image ${i+1}">`;
-    if(i===0) btn.classList.add('active');
+
+    btn.type = 'button';
+    btn.className = 'thumbnail-button';
+    btn.setAttribute('aria-label', `View emergency light image ${i + 1}`);
+
+    btn.innerHTML = `
+      <img
+        src="${src}"
+        alt="Emergency light product image ${i + 1}"
+        loading="lazy"
+      >
+    `;
+
+    if (i === 0) {
+      btn.classList.add('active');
+    }
+
     btn.addEventListener('click', () => {
-      $('mainProductImage').src = src;
-      [...grid.children].forEach(x => x.classList.remove('active'));
+      const mainImage = $('mainProductImage');
+
+      if (mainImage) {
+        mainImage.src = src;
+        mainImage.alt = `Emergency light product image ${i + 1}`;
+      }
+
+      [...grid.children].forEach(item => {
+        item.classList.remove('active');
+      });
+
       btn.classList.add('active');
     });
+
     grid.appendChild(btn);
   });
 }
