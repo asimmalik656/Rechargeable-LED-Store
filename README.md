@@ -4,7 +4,7 @@ A complete static ecommerce landing page for the Mini Rechargeable LED Emergency
 
 ## Open locally
 
-Double-click `index.html`, or open the folder in VS Code and use the Live Server extension.
+Double-click `index.html`, or opens the folder in VS Code and use the Live Server extension.
 
 ## Important settings
 
